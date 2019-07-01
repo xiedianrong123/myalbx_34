@@ -1,8 +1,10 @@
 
 // 1.引入exoress模块
 const express = require('express')
-// 引入 fs模块
-const fs = require('fs')
+
+//6. 引入路由模块
+const router = require('./router/index.js')
+
 
 // 2.创建应用服务器
 const app = express()
@@ -19,14 +21,6 @@ app.use('/assets', express.static('assets'))
 // 托管图片虚拟路径
 app.use('/uploads', express.static('uploads'))
 
-
-// 5添加路由
-app.get('/', (req, res) => {
-    fs.readFile(__dirname + "/views/index.html", (err, data) => {
-        if (err) {
-            res.end('404')
-        } else {
-            res.end(data)
-        }
-    })
-})
+// 7。添加路由设置
+//  use :让app应用来使用这个路由进行所有的用户管理
+app.use(router)
